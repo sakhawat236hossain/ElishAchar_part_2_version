@@ -141,7 +141,7 @@ export default function CheckoutPage() {
           </h2>
           <button
             onClick={handleDownloadInvoice}
-            className="px-6 py-2 bg-green-600 text-white rounded font-bold"
+            className="px-6 py-2 bg-green-600 text-white rounded font-bold cursor-pointer"
           >
             ডাউনলোড ইনভয়েস
           </button>
@@ -218,7 +218,7 @@ export default function CheckoutPage() {
                     <div className="flex items-center gap-2 mt-1">
                       <button
                         onClick={() => updateQuantity(p._id, -1)}
-                        className="px-2 py-1 bg-gray-100 rounded"
+                        className="px-2 py-1 bg-gray-100 rounded cursor-pointer"
                       >
                         -
                       </button>
@@ -227,7 +227,7 @@ export default function CheckoutPage() {
                       </span>
                       <button
                         onClick={() => updateQuantity(p._id, 1)}
-                        className="px-2 py-1 bg-gray-100 rounded"
+                        className="px-2 py-1 bg-gray-100 rounded cursor-pointer"
                       >
                         +
                       </button>
@@ -286,7 +286,7 @@ export default function CheckoutPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-3 bg-slate-600 text-white font-bold rounded"
+                className="w-full py-3 bg-slate-600 text-white font-bold rounded cursor-pointer"
               >
                 {isSubmitting ? "অর্ডার হচ্ছে..." : "Confirm Order"}
               </button>

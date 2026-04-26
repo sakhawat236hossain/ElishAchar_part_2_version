@@ -1,7 +1,3 @@
-
-
-
-
 // new code for Admin start
 "use client";
 
@@ -32,7 +28,6 @@ export default function Admin() {
     }
   }, []);
 
- 
   const handleLogin = (e) => {
     e.preventDefault();
 
@@ -52,7 +47,6 @@ export default function Admin() {
     setPassword("");
   };
 
- 
   const fetchStats = async () => {
     try {
       const [oRes, pRes, rRes] = await Promise.all([
@@ -105,7 +99,6 @@ export default function Admin() {
     return (
       <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
         <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-8">
-
           <h1 className="text-3xl font-bold text-white text-center mb-6">
             ⚙️ অ্যাডমিন লগইন
           </h1>
@@ -127,11 +120,9 @@ export default function Admin() {
               className="w-full bg-slate-800 p-3 rounded text-white"
             />
 
-            {loginError && (
-              <p className="text-red-500 text-sm">{loginError}</p>
-            )}
+            {loginError && <p className="text-red-500 text-sm">{loginError}</p>}
 
-            <button className="w-full bg-blue-600 py-3 rounded text-white font-bold">
+            <button className="w-full bg-blue-600 py-3 rounded text-white font-bold cursor-pointer">
               লগইন
             </button>
           </form>
@@ -141,7 +132,7 @@ export default function Admin() {
   }
 
   // --- DASHBOARD ---
- return (
+  return (
     <div className="p-4 md:p-8 bg-slate-950 min-h-screen text-white">
       {/* Header section adjusted for mobile wrap */}
       <div className="flex flex-col md:flex-row justify-between gap-4 mb-6">
@@ -157,7 +148,7 @@ export default function Admin() {
 
           <button
             onClick={handleLogout}
-            className="bg-red-600 px-3 md:px-4 py-2 rounded text-sm md:text-base"
+            className="bg-red-600 px-3 md:px-4 py-2 rounded text-sm md:text-base cursor-pointer"
           >
             Logout
           </button>
@@ -189,4 +180,4 @@ export default function Admin() {
     </div>
   );
 }
-// new code for Admin end 
+// new code for Admin end

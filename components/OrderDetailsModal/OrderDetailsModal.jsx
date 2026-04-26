@@ -4,7 +4,8 @@ export default function OrderDetailsModal({ order, onClose }) {
   if (!order) return null;
 
   // ডাটাবেজের ফিল্ডগুলো সেফটি চেক করে নেওয়া
-  const { customer, products, subtotal, total, shipping, orderDate, _id } = order;
+  const { customer, products, subtotal, total, shipping, orderDate, _id } =
+    order;
 
   return (
     <div className="fixed inset-0 bg-black/80 z-[100] flex items-center justify-center p-4 backdrop-blur-sm">
@@ -17,7 +18,7 @@ export default function OrderDetailsModal({ order, onClose }) {
           </div>
           <button
             onClick={onClose}
-            className="text-slate-400 hover:text-white text-3xl transition"
+            className="text-slate-400 hover:text-white text-3xl transition cursor-pointer"
           >
             &times;
           </button>
@@ -28,16 +29,28 @@ export default function OrderDetailsModal({ order, onClose }) {
           {/* Customer & Payment Info */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="bg-slate-800 p-4 rounded-xl border border-slate-700">
-              <h4 className="text-slate-400 text-xs uppercase font-bold mb-2">কাস্টমার তথ্য</h4>
-              <p className="text-white font-semibold text-lg">{customer?.name || "N/A"}</p>
+              <h4 className="text-slate-400 text-xs uppercase font-bold mb-2">
+                কাস্টমার তথ্য
+              </h4>
+              <p className="text-white font-semibold text-lg">
+                {customer?.name || "N/A"}
+              </p>
               <p className="text-slate-300">📞 {customer?.phone || "N/A"}</p>
-              <p className="text-slate-400 text-sm mt-1 break-words">📍 {customer?.address || "N/A"}</p>
+              <p className="text-slate-400 text-sm mt-1 break-words">
+                📍 {customer?.address || "N/A"}
+              </p>
             </div>
 
             <div className="bg-slate-800 p-4 rounded-xl border border-slate-700">
-              <h4 className="text-slate-400 text-xs uppercase font-bold mb-2">পেমেন্ট ও নোট</h4>
-              <p className="text-white font-semibold">{customer?.paymentMethod || "ক্যাশ অন ডেলিভারি"}</p>
-              <p className="text-slate-400 text-xs italic mt-2">নোট: {customer?.note || "কোনো নোট নেই"}</p>
+              <h4 className="text-slate-400 text-xs uppercase font-bold mb-2">
+                পেমেন্ট ও নোট
+              </h4>
+              <p className="text-white font-semibold">
+                {customer?.paymentMethod || "ক্যাশ অন ডেলিভারি"}
+              </p>
+              <p className="text-slate-400 text-xs italic mt-2">
+                নোট: {customer?.note || "কোনো নোট নেই"}
+              </p>
             </div>
           </div>
 
@@ -57,19 +70,27 @@ export default function OrderDetailsModal({ order, onClose }) {
                       src={item.image}
                       alt={item.name}
                       className="w-full h-full object-cover"
-                      onError={(e) => { e.target.src = "/placeholder-image.png"; }}
+                      onError={(e) => {
+                        e.target.src = "/placeholder-image.png";
+                      }}
                     />
                   </div>
                   <div className="flex-grow">
                     <p className="text-white font-medium">{item.name}</p>
                     <div className="flex gap-3 text-slate-400 text-xs mt-1">
-                        <span>ওজন: {item.weight || "N/A"}</span>
-                        <span className="font-bold text-slate-200">পরিমাণ: {item.quantity || 1}</span>
+                      <span>ওজন: {item.weight || "N/A"}</span>
+                      <span className="font-bold text-slate-200">
+                        পরিমাণ: {item.quantity || 1}
+                      </span>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-green-400 font-bold">৳{ (item.price * (item.quantity || 1)).toLocaleString() }</p>
-                    <p className="text-slate-500 text-[10px]">৳{item.price} × {item.quantity || 1}</p>
+                    <p className="text-green-400 font-bold">
+                      ৳{(item.price * (item.quantity || 1)).toLocaleString()}
+                    </p>
+                    <p className="text-slate-500 text-[10px]">
+                      ৳{item.price} × {item.quantity || 1}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -88,14 +109,17 @@ export default function OrderDetailsModal({ order, onClose }) {
             </div>
             <div className="flex justify-between text-white text-xl font-bold border-t border-slate-700 pt-2 mt-1">
               <span>মোট</span>
-              <span className="text-green-400">৳{total?.toLocaleString() || 0}</span>
+              <span className="text-green-400">
+                ৳{total?.toLocaleString() || 0}
+              </span>
             </div>
           </div>
         </div>
 
         {/* Footer */}
         <div className="p-4 bg-slate-800 border-t border-slate-700 text-center text-slate-500 text-xs">
-          অর্ডারের সময়: {orderDate ? new Date(orderDate).toLocaleString("bn-BD") : "N/A"}
+          অর্ডারের সময়:{" "}
+          {orderDate ? new Date(orderDate).toLocaleString("bn-BD") : "N/A"}
         </div>
       </div>
     </div>

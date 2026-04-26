@@ -1,30 +1,30 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 // html2pdf will be imported dynamically
 
 const products = [
   {
     id: 1,
-    name: 'ইলিশ মাছের আচার',
-    emoji: '🐟',
+    name: "ইলিশ মাছের আচার",
+    emoji: "🐟",
     price: 1000,
-    quantity: '৫০০ গ্রাম',
+    quantity: "৫০০ গ্রাম",
   },
   {
     id: 2,
-    name: 'গরুর মাংসের ঝুরা',
-    emoji: '🥘',
+    name: "গরুর মাংসের ঝুরা",
+    emoji: "🥘",
     price: 800,
-    quantity: '৫০০ গ্রাম',
+    quantity: "৫০০ গ্রাম",
   },
   {
     id: 3,
-    name: 'মিশ্র সবজির আচার',
-    emoji: '🥒',
+    name: "মিশ্র সবজির আচার",
+    emoji: "🥒",
     price: 600,
-    quantity: '৫০০ গ্রাম',
+    quantity: "৫০০ গ্রাম",
   },
 ];
 
@@ -33,9 +33,9 @@ const SHIPPING = 50;
 export default function Checkout({ onClose }) {
   const [selectedProducts, setSelectedProducts] = useState({});
   const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    address: '',
+    name: "",
+    phone: "",
+    address: "",
   });
   const [orderPlaced, setOrderPlaced] = useState(false);
 
@@ -96,8 +96,8 @@ export default function Checkout({ onClose }) {
         <div class="order-id">অর্ডার আইডি: ${orderId}</div>
 
         <h3>অর্ডার বিবরণ</h3>
-        <p><strong>তারিখ:</strong> ${orderDate.toLocaleDateString('bn-BD')}</p>
-        <p><strong>সময়:</strong> ${orderDate.toLocaleTimeString('bn-BD')}</p>
+        <p><strong>তারিখ:</strong> ${orderDate.toLocaleDateString("bn-BD")}</p>
+        <p><strong>সময়:</strong> ${orderDate.toLocaleTimeString("bn-BD")}</p>
 
         <h3>গ্রাহক তথ্য</h3>
         <p><strong>নাম:</strong> ${formData.name}</p>
@@ -110,7 +110,7 @@ export default function Checkout({ onClose }) {
                 <tr><th>পণ্য</th><th class="amount">দাম</th></tr>
             </thead>
             <tbody>
-                ${selectedProductsList.map((p) => `<tr><td>${p.emoji} ${p.name}</td><td class="amount">৳${p.price}</td></tr>`).join('')}
+                ${selectedProductsList.map((p) => `<tr><td>${p.emoji} ${p.name}</td><td class="amount">৳${p.price}</td></tr>`).join("")}
             </tbody>
         </table>
 
@@ -140,8 +140,8 @@ export default function Checkout({ onClose }) {
     `;
 
     // Create blob and download
-    const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
-    const link = document.createElement('a');
+    const blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" });
+    const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
     link.download = `আলেশা_বাজার_ইনভয়েস_${orderId}.html`;
     link.click();
@@ -152,12 +152,12 @@ export default function Checkout({ onClose }) {
     e.preventDefault();
 
     if (selectedProductsList.length === 0) {
-      alert('দয়া করে কমপক্ষে একটি পণ্য নির্বাচন করুন');
+      alert("দয়া করে কমপক্ষে একটি পণ্য নির্বাচন করুন");
       return;
     }
 
     if (!formData.name || !formData.phone || !formData.address) {
-      alert('দয়া করে সমস্ত ফিল্ড পূরণ করুন');
+      alert("দয়া করে সমস্ত ফিল্ড পূরণ করুন");
       return;
     }
 
@@ -176,19 +176,21 @@ export default function Checkout({ onClose }) {
       shipping: SHIPPING,
       total,
       orderDate: new Date().toISOString(),
-      paymentMethod: 'Cash on Delivery',
-      status: 'pending',
+      paymentMethod: "Cash on Delivery",
+      status: "pending",
     };
 
     try {
-      const existingOrders = JSON.parse(localStorage.getItem('admin_orders') || '[]');
+      const existingOrders = JSON.parse(
+        localStorage.getItem("admin_orders") || "[]",
+      );
       existingOrders.push(orderData);
-      localStorage.setItem('admin_orders', JSON.stringify(existingOrders));
+      localStorage.setItem("admin_orders", JSON.stringify(existingOrders));
     } catch (error) {
-      console.error('Error saving order:', error);
+      console.error("Error saving order:", error);
     }
 
-    console.log('[ADMIN ORDER DATA]', orderData);
+    console.log("[ADMIN ORDER DATA]", orderData);
     setOrderPlaced(true);
   };
 
@@ -197,19 +199,27 @@ export default function Checkout({ onClose }) {
       <div className="flex items-center justify-center p-4 min-h-full">
         <div className="bg-white rounded-lg shadow-2xl p-8 max-w-md text-center">
           <div className="text-5xl mb-4">✅</div>
-          <h2 className="text-3xl font-bold text-green-700 mb-4">অর্ডার সফল!</h2>
-          <p className="text-gray-600 mb-6">আপনার অর্ডার সফলভাবে গ্রহণ করা হয়েছে। আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।</p>
+          <h2 className="text-3xl font-bold text-green-700 mb-4">
+            অর্ডার সফল!
+          </h2>
+          <p className="text-gray-600 mb-6">
+            আপনার অর্ডার সফলভাবে গ্রহণ করা হয়েছে। আমরা শীঘ্রই আপনার সাথে
+            যোগাযোগ করব।
+          </p>
           <div className="bg-green-50 p-4 rounded-lg mb-6">
             <p className="text-gray-700">
               <strong>গ্রাহক নাম:</strong> {formData.name}
             </p>
             <p className="text-gray-700">
-              <strong>মোট টাকা:</strong> <span className="text-2xl font-bold text-green-700">৳{total}</span>
+              <strong>মোট টাকা:</strong>{" "}
+              <span className="text-2xl font-bold text-green-700">
+                ৳{total}
+              </span>
             </p>
           </div>
           <button
             onClick={() => onClose()}
-            className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg w-full transition-colors"
+            className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg w-full transition-colors cursor-pointer"
           >
             হোম পেজে ফিরুন
           </button>
@@ -231,8 +241,10 @@ export default function Checkout({ onClose }) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* বাম পাশ - পণ্য নির্বাচন */}
           <div className="bg-white rounded-xl shadow-lg p-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">পণ্য নির্বাচন করুন</h2>
-            
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              পণ্য নির্বাচন করুন
+            </h2>
+
             <div className="space-y-4 mb-8">
               {products.map((product) => (
                 <div
@@ -250,10 +262,16 @@ export default function Checkout({ onClose }) {
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
                         <span className="text-2xl">{product.emoji}</span>
-                        <h3 className="text-lg font-bold text-gray-900">{product.name}</h3>
+                        <h3 className="text-lg font-bold text-gray-900">
+                          {product.name}
+                        </h3>
                       </div>
-                      <p className="text-gray-600 text-sm mt-1">পরিমাণ: {product.quantity}</p>
-                      <p className="text-green-700 font-bold text-lg mt-2">৳{product.price}</p>
+                      <p className="text-gray-600 text-sm mt-1">
+                        পরিমাণ: {product.quantity}
+                      </p>
+                      <p className="text-green-700 font-bold text-lg mt-2">
+                        ৳{product.price}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -263,12 +281,21 @@ export default function Checkout({ onClose }) {
             {/* অর্ডার সারসংক্ষেপ - বাম পাশে */}
             {selectedProductsList.length > 0 && (
               <div className="bg-green-50 rounded-lg p-6 border-2 border-green-200">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">নির্বাচিত পণ্য</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  নির্বাচিত পণ্য
+                </h3>
                 <div className="space-y-3 mb-4">
                   {selectedProductsList.map((product) => (
-                    <div key={product.id} className="flex justify-between items-center">
-                      <span className="text-gray-700">{product.emoji} {product.name}</span>
-                      <span className="font-bold text-gray-900">৳{product.price}</span>
+                    <div
+                      key={product.id}
+                      className="flex justify-between items-center"
+                    >
+                      <span className="text-gray-700">
+                        {product.emoji} {product.name}
+                      </span>
+                      <span className="font-bold text-gray-900">
+                        ৳{product.price}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -282,8 +309,12 @@ export default function Checkout({ onClose }) {
                     <span className="font-semibold">৳{SHIPPING}</span>
                   </div>
                   <div className="border-t-2 border-green-200 pt-3 flex justify-between items-center">
-                    <span className="text-lg font-bold text-gray-900">মোট:</span>
-                    <span className="text-3xl font-bold text-green-700">৳{total}</span>
+                    <span className="text-lg font-bold text-gray-900">
+                      মোট:
+                    </span>
+                    <span className="text-3xl font-bold text-green-700">
+                      ৳{total}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -294,11 +325,15 @@ export default function Checkout({ onClose }) {
           <div className="space-y-6">
             {/* গ্রাহক তথ্য ফর্ম */}
             <div className="bg-white rounded-xl shadow-lg p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">আপনার তথ্য</h2>
-              
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                আপনার তথ্য
+              </h2>
+
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-gray-700 font-bold mb-2">আপনার নাম *</label>
+                  <label className="block text-gray-700 font-bold mb-2">
+                    আপনার নাম *
+                  </label>
                   <input
                     type="text"
                     name="name"
@@ -311,7 +346,9 @@ export default function Checkout({ onClose }) {
                 </div>
 
                 <div>
-                  <label className="block text-gray-700 font-bold mb-2">মোবাইল নাম্বার *</label>
+                  <label className="block text-gray-700 font-bold mb-2">
+                    মোবাইল নাম্বার *
+                  </label>
                   <input
                     type="tel"
                     name="phone"
@@ -324,7 +361,9 @@ export default function Checkout({ onClose }) {
                 </div>
 
                 <div>
-                  <label className="block text-gray-700 font-bold mb-2">সম্পূর্ণ ঠিকানা *</label>
+                  <label className="block text-gray-700 font-bold mb-2">
+                    সম্পূর্ণ ঠিকানা *
+                  </label>
                   <textarea
                     name="address"
                     value={formData.address}
@@ -339,7 +378,7 @@ export default function Checkout({ onClose }) {
                 <button
                   type="submit"
                   disabled={selectedProductsList.length === 0}
-                  className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white font-bold py-3 px-6 rounded-lg transition-colors text-lg"
+                  className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white font-bold py-3 px-6 rounded-lg transition-colors text-lg cursor-pointer"
                 >
                   অর্ড���র করুন (৳{total})
                 </button>
@@ -348,34 +387,44 @@ export default function Checkout({ onClose }) {
 
             {/* ক্যাশ অন ডেলিভারি তথ্য */}
             <div className="bg-blue-50 border-2 border-blue-300 rounded-xl p-6">
-              <h3 className="text-xl font-bold text-blue-900 mb-4">💵 ক্যাশ অন ডেলিভারি (COD)</h3>
+              <h3 className="text-xl font-bold text-blue-900 mb-4">
+                💵 ক্যাশ অন ডেলিভারি (COD)
+              </h3>
               <div className="space-y-3 text-blue-900">
                 <div className="flex items-start gap-3">
                   <span className="text-xl">✓</span>
                   <div>
                     <p className="font-semibold">অগ্রিম পেমেন্ট নেই</p>
-                    <p className="text-sm text-blue-800">কোনো অগ্রিম অর্থ প্রদান করতে হবে না</p>
+                    <p className="text-sm text-blue-800">
+                      কোনো অগ্রিম অর্থ প্রদান করতে হবে না
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <span className="text-xl">✓</span>
                   <div>
                     <p className="font-semibold">ডেলিভারিতে পেমেন্ট করুন</p>
-                    <p className="text-sm text-blue-800">পণ্য গ্রহণের সময় টাকা প্রদান করুন</p>
+                    <p className="text-sm text-blue-800">
+                      পণ্য গ্রহণের সময় টাকা প্রদান করুন
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <span className="text-xl">✓</span>
                   <div>
                     <p className="font-semibold">দ্রুত ডেলিভারি</p>
-                    <p className="text-sm text-blue-800">২-৩ ব্যবসায়িক দিনে সরবরাহ</p>
+                    <p className="text-sm text-blue-800">
+                      ২-৩ ব্যবসায়িক দিনে সরবরাহ
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <span className="text-xl">✓</span>
                   <div>
                     <p className="font-semibold">সম্পূর্ণ নিরাপদ</p>
-                    <p className="text-sm text-blue-800">আপনার তথ্য এবং লেনদেন সম্পূর্ণ সুরক্ষিত</p>
+                    <p className="text-sm text-blue-800">
+                      আপনার তথ্য এবং লেনদেন সম্পূর্ণ সুরক্ষিত
+                    </p>
                   </div>
                 </div>
               </div>
@@ -383,11 +432,19 @@ export default function Checkout({ onClose }) {
 
             {/* যোগাযোগ তথ্য */}
             <div className="bg-gray-100 rounded-xl p-6">
-              <h3 className="text-lg font-bold text-gray-900 mb-4">যোগাযোগ তথ্য</h3>
+              <h3 className="text-lg font-bold text-gray-900 mb-4">
+                যোগাযোগ তথ্য
+              </h3>
               <div className="space-y-2 text-gray-700">
-                <p><strong>📞 ফোন:</strong> 01616123500</p>
-                <p><strong>📍 অবস্থান:</strong> Tangail, Dhaka, Bangladesh</p>
-                <p className="text-sm text-gray-600 mt-4">যেকোনো সমস্যার জন্য আমাদের সাথে যোগাযোগ করুন</p>
+                <p>
+                  <strong>📞 ফোন:</strong> 01616123500
+                </p>
+                <p>
+                  <strong>📍 অবস্থান:</strong> Tangail, Dhaka, Bangladesh
+                </p>
+                <p className="text-sm text-gray-600 mt-4">
+                  যেকোনো সমস্যার জন্য আমাদের সাথে যোগাযোগ করুন
+                </p>
               </div>
             </div>
           </div>

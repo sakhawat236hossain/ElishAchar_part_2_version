@@ -5,7 +5,7 @@ export default function TabList({ activeTab, setActiveTab }) {
         <button
           key={tab}
           onClick={() => setActiveTab(tab)}
-          className={`px-4 py-2 capitalize rounded-lg text-sm md:text-base ${
+          className={`px-4 py-2 capitalize rounded-lg text-sm md:text-base cursor-pointer ${
             activeTab === tab ? "bg-blue-600" : "bg-slate-800"
           }`}
         >
