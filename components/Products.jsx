@@ -188,22 +188,21 @@ const handleDownloadInvoice = async () => {
       ) : (
         <>
           {/* হাইজেনি ব্যানার */}
-          <div className="bg-green-800 text-white p-4 rounded-lg mb-6 shadow-md">
-            <h2 className="text-lg font-bold flex justify-center items-center gap-2 mb-2">
-              <span>🔒</span> ১০০% হাইজেনিক ও নিরাপদ
-            </h2>
-            <p className="text-sm text-center text-green-100">
-              আমাদের প্রতিটি আচারের বোতল তৈরি হয় অত্যন্ত পরিষ্কার ও স্বাস্থ্যকর
-              পরিবেশে। ঘরের মতো বিশ্বাসযোগ্য স্বাদ আর মান আমরা দিচ্ছি প্রতিটি
-              প্যাকেজে।
-            </p>
-          </div>
+         {/* সেকশন ১: টাইটেল (সবুজ ব্যাকগ্রাউন্ড) */}
+{/* সেকশন ১: টাইটেল */}
+<div className="w-full bg-green-900 text-white text-center text-3xl font-bold p-3">
+  🔒 ১০০% হাইজেনিক ও নিরাপদ
+</div>
 
-          {/* ডেলিভারি ইনফরমেশন */}
-          <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 p-3 rounded-lg mb-6 text-center font-bold">
-            🚚 সারাদেশে ক্যাশ অন হোম ডেলিভারি দেয়া হয়। পণ্য হাতে পেয়ে টাকা
-            পরিশোধ করুন।
-          </div>
+{/* সেকশন ২: বর্ণনা */}
+<div className="w-full bg-green-900 text-white text-center text-2xl font-bold p-4 mt-5">
+  আমাদের প্রতিটি আচারের বোতল তৈরি হয় অত্যন্ত পরিষ্কার ও স্বাস্থ্যকর পরিবেশে। ঘরের মতো বিশ্বাসযোগ্য স্বাদ আর মান আমরা দিচ্ছি প্রতিটি প্যাকেজে।
+</div>
+
+{/* সেকশন ৩: ডেলিভারি */}
+<div className="w-full bg-white text-black text-center text-3xl font-bold p-4">
+  সারাদেশে ক্যাশ অন হোম ডেলিভারি দেয়া হয়। পণ্য হাতে পেয়ে টাকা পরিশোধ।
+</div>
 
           {/* প্রোডাক্ট লিস্ট */}
           <section className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
