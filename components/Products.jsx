@@ -52,46 +52,85 @@ export default function CheckoutPage() {
   const shipping = shippingLocation === "inside" ? 60 : 100;
   const total = subtotal + shipping;
 
-  const handleDownloadInvoice = async () => {
-    if (!placedOrder) return;
-    const { jsPDF } = await import("jspdf/dist/jspdf.es.min.js");
-    const { default: autoTable } = await import("jspdf-autotable");
-    const doc = new jsPDF();
+const handleDownloadInvoice = async () => {
+  if (!placedOrder) return;
+  const { jsPDF } = await import("jspdf/dist/jspdf.es.min.js");
+  const { default: autoTable } = await import("jspdf-autotable");
+  const doc = new jsPDF();
 
-    doc.setFillColor(34, 197, 94);
-    doc.rect(0, 0, 210, 30, "F");
-    doc.setTextColor(255, 255, 255);
-    doc.setFontSize(22);
-    doc.text("INVOICE", 15, 20);
+  // ১. হেডার সেকশন
+  doc.setFillColor(34, 197, 94); // Green Header
+  doc.rect(0, 0, 210, 35, "F");
+  
+  doc.setTextColor(255, 255, 255);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(24);
+  doc.text("INVOICE", 15, 22);
+  
+  // কোম্পানির তথ্য বা ডানপাশে কিছু টেক্সট
+  doc.setFontSize(10);
+  doc.setFont("helvetica", "normal");
+  doc.text("Thank you for your business!", 150, 20);
 
-    doc.setTextColor(0, 0, 0);
-    doc.setFontSize(12);
-    doc.text(`Customer: ${placedOrder.customer.name}`, 15, 40);
-    doc.text(`Phone: ${placedOrder.customer.phone}`, 15, 47);
-    doc.text(`Address: ${placedOrder.customer.address}`, 15, 54);
+  // ২. কাস্টমার ডিটেইলস সেকশন
+  doc.setTextColor(0, 0, 0);
+  doc.setFontSize(11);
+  doc.setFont("helvetica", "bold");
+  doc.text("BILL TO:", 15, 50);
+  
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.text(`Name: ${placedOrder.customer.name}`, 15, 56);
+  doc.text(`Phone: ${placedOrder.customer.phone}`, 15, 61);
+  doc.text(`Address: ${placedOrder.customer.address}`, 15, 66);
 
-    const tableColumn = ["Product", "Qty", "Price", "Total"];
-    const tableRows = placedOrder.products.map((p) => [
-      p.name,
-      p.quantity,
-      `৳${p.price}`,
-      `৳${p.price * p.quantity}`,
-    ]);
+  // একটি পাতলা লাইন ডিভাইডার
+  doc.setDrawColor(200, 200, 200);
+  doc.line(15, 72, 195, 72);
 
-    autoTable(doc, {
-      head: [tableColumn],
-      body: tableRows,
-      startY: 65,
-      headStyles: { fillColor: [34, 197, 94] },
-    });
+  // ৩. টেবিল সেকশন
+  const tableColumn = ["Product Name", "Qty", "Price ", "Total "];
+  const tableRows = placedOrder.products.map((p) => [
+    p.name,
+    p.quantity,
+    p.price.toLocaleString(),
+    (p.price * p.quantity).toLocaleString(),
+  ]);
 
-    const finalY = doc.lastAutoTable.finalY + 10;
-    doc.setFontSize(14);
-    doc.text(`Shipping: ৳${placedOrder.shipping}`, 150, finalY);
-    doc.text(`Total Amount: ৳${placedOrder.total}`, 150, finalY + 10);
+  autoTable(doc, {
+    head: [tableColumn],
+    body: tableRows,
+    startY: 80,
+    headStyles: { fillColor: [34, 197, 94], fontSize: 11, halign: 'center' },
+    columnStyles: { 
+        1: { halign: 'center' }, 
+        2: { halign: 'right' }, 
+        3: { halign: 'right' } 
+    },
+    theme: 'striped', // সুন্দর স্ট্রাইপড লুক
+    margin: { left: 15, right: 15 },
+  });
 
-    doc.save(`Invoice_${placedOrder.orderId}.pdf`);
-  };
+  // ৪. টোটাল সামারি সেকশন
+  const finalY = doc.lastAutoTable.finalY + 15;
+  
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(11);
+  doc.text(`Shipping:`, 140, finalY);
+  doc.text(`${placedOrder.shipping?.toLocaleString() || 0}`, 190, finalY, { align: 'right' });
+  
+  doc.setFontSize(14);
+  doc.setTextColor(34, 197, 94); // সবুজের হাইলাইট
+  doc.text(`Total Amount:`, 140, finalY + 10);
+  doc.text(`${placedOrder.total?.toLocaleString()}`, 190, finalY + 10, { align: 'right' });
+
+  // ৫. ফুটার (থ্যাঙ্কস নোট)
+  doc.setTextColor(100, 100, 100);
+  doc.setFontSize(9);
+  doc.text("This is a computer generated invoice.", 105, 285, { align: 'center' });
+
+  doc.save(`Invoice_${placedOrder.orderId || 'Generated'}.pdf`);
+};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
