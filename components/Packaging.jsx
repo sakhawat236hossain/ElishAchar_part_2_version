@@ -1,35 +1,35 @@
-import Image from 'next/image';
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 export default function Packaging({ onOrderClick }) {
-	const packagingDetails = [
-		{
-			icon: '⚖️',
-			title: 'পরিমাণ',
-			text: '৫০০ গ্রাম - ১ কেজি (আপনার প্রয়োজন অনুযায়ী)',
-			color: 'green',
-		},
-		{
-			icon: '🛡️',
-			title: 'প্যাকেজিং মান',
-			text: 'ফুড-গ্রেড জারে ভ্যাকুয়াম প্যাক করা হয় যা সম্পূর্ণ নিরাপদ, স্বাস্থ্যকর এবং লিক-প্রুফ।',
-			color: 'green',
-		},
-		{
-			icon: '⏳',
-			title: 'সংরক্ষণ মেয়াদ',
-			text: '৬ মাস পর্যন্ত সংরক্ষণযোগ্য (সরাসরি সূর্যালোক থেকে দূরে, ঠান্ডা ও শুষ্ক স্থানে)',
-			color: 'green',
-		},
-		{
-			icon: '🚚',
-			title: 'ডেলিভারি',
-			text: 'সারা বাংলাদেশে দ্রুত ও নিরাপদ হোম ডেলিভারি - আপনার দোরগোড়ায় ইনশাআল্লাহ।',
-			color: 'blue',
-		},
-	];
+  const packagingDetails = [
+    {
+      icon: "⚖️",
+      title: "পরিমাণ",
+      text: "৫০০ গ্রাম - ১ কেজি (আপনার প্রয়োজন অনুযায়ী)",
+      color: "green",
+    },
+    {
+      icon: "🛡️",
+      title: "প্যাকেজিং মান",
+      text: "ফুড-গ্রেড জারে ভ্যাকুয়াম প্যাক করা হয় যা সম্পূর্ণ নিরাপদ, স্বাস্থ্যকর এবং লিক-প্রুফ।",
+      color: "green",
+    },
+    {
+      icon: "⏳",
+      title: "সংরক্ষণ মেয়াদ",
+      text: "৬ মাস পর্যন্ত সংরক্ষণযোগ্য (সরাসরি সূর্যালোক থেকে দূরে, ঠান্ডা ও শুষ্ক স্থানে)",
+      color: "green",
+    },
+    {
+      icon: "🚚",
+      title: "ডেলিভারি",
+      text: "সারা বাংলাদেশে দ্রুত ও নিরাপদ হোম ডেলিভারি - আপনার দোরগোড়ায় ইনশাআল্লাহ।",
+      color: "blue",
+    },
+  ];
 
-	return (
+  return (
     <section className="w-full py-16 px-4 md:px-8 bg-gray-50">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
@@ -107,7 +107,7 @@ export default function Packaging({ onOrderClick }) {
 							</a>
 						</div> */}
             <motion.a
-              href="#best-selling"
+              href="#products"
               initial={{ x: 0 }}
               animate={{
                 x: [0, -4, 4, -4, 4, 0],
